@@ -86,9 +86,9 @@ pigz [Ref](https://github.com/madler/pigz)
   - `Archive-Compact <src> <dest>`  
   - `Archive-Compact -Path <src> <dest>`  
   - `Archive-Compact -Path <src> -DestinationPath <dest>`  
-- 7Zip [7zip4Powershell](https://github.com/thoemmi/7Zip4Powershell) 
-- GZipStream
-- DeflateStream
+- 7Zip [7zip4Powershell](https://github.com/thoemmi/7Zip4Powershell)
+- GZipStream (Mode [IO.Compression.CompressionMode]::Compress)
+- DeflateStream (Mode [IO.Compression.CompressionMode]::Compress)
 - New-ZipFile [Ref](https://ss64.com/ps/zip.html) (Only available on PowerShell 3/4)
 - Expand-ZipFile [Ref](https://ss64.com/ps/zip.html) (Only available on PowerShell 3/4)
 
