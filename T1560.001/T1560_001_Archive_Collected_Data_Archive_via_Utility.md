@@ -86,24 +86,28 @@ pigz [Ref](https://github.com/madler/pigz)
   - `Archive-Compact <src> <dest>`  
   - `Archive-Compact -Path <src> <dest>`  
   - `Archive-Compact -Path <src> -DestinationPath <dest>`  
-- 7Zip (https://github.com/thoemmi/7Zip4Powershell)  
+- 7Zip [7zip4Powershell](https://github.com/thoemmi/7Zip4Powershell) 
 - GZipStream
+- DeflateStream
+- New-ZipFile [Ref](https://ss64.com/ps/zip.html) (Only available on PowerShell 3/4)
+- Expand-ZipFile [Ref](https://ss64.com/ps/zip.html) (Only available on PowerShell 3/4)
 
 ## Possible Extention To be Compress and Exfiltrate (Not limited to these)
 
 ```txt
 .exe .msi .dll 
-.db .mdb .sql .dbf
-.htm .html .css .jar .js 
-.conf .xml .tmp
+.db .mdb .accdb .sql .sqlite .dbf .rdo .ora .accda .accdr .accdt
+.htm .html .css .jar .js .php
+.conf .xml .tmp .cfg .rdp
 .log .dmp .bak .dat  
 .avi .mp3 .mp4 .mpg .mpeg 
 .asp .aspx .inc .jpg .java .cpp .py .cs .rs
-.xl* .ppt* .doc* .csv .pdf .one .mpp .pst .eml
+.xl* .ppt* .doc* .csv .pdf .one .mpp .odt .rtf
+.pst .eml .msf
 ```
 
 ## Archive extension list (Not limited to these)  
 
 ```txt
-.zip .7z .tar .tgz .rar .gz .arj
+.zip .7z .tar .tgz .rar .gz .arj .bz2
 ```
