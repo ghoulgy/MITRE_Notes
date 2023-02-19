@@ -33,7 +33,9 @@ tar [Ref](https://www.dynamsoft.com/codepool/create-extract-update-tar-gzip-wind
 
 ### 7zip (7z\*) / gzip
 
-- Switch for compress -> `a`
+- Switch for compress -> `a` `u`
+
+7zip [Ref](https://sevenzip.osdn.jp/chm/cmdline/commands/update.htm)
 
 ```cmd
 C:\Windows\system32\cmd.exe/c c:\users\public\7zr.exe a -bso0 -bse2 -bsp2 -p<password_from_comamnd_line> c:\users\public\path.7z c:\users\public\20190423\
@@ -79,6 +81,16 @@ pigz <source>
 ```
 
 pigz [Ref](https://github.com/madler/pigz)
+
+### gpg
+
+```shell
+gpg --batch --yes --passphrase-fd 0 --output #{test_folder}/#{test_file}.zip.gpg -c #{test_folder}/#{test_file}.zip
+```
+
+gpg [Ref](https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1560.001/T1560.001.md#atomic-test-8---data-encrypted-with-zip-and-gpg-symmetric)
+
+gpg [Command List](https://www.gnupg.org/documentation/manpage.html)
 
 ## Powershell Command
 
