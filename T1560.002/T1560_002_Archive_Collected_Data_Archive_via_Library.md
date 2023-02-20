@@ -1,6 +1,6 @@
 # T1560.002 - Archive Collected Data: Archive via Library
 
-Just some archive compression library comes across my mind 🤔
+Just some archive compression library comes across my mind 🤔  
 
 ## zip
 
@@ -40,6 +40,7 @@ Download [link](https://ibsensoftware.com/download.html)
 
 ## Hunt
 
-For .dll library, file name might be change  
-Identify unsual windows binaries that loads these dlls  
-Identify any bulk File Events on those file extension mentioned in [T1560.001](https://github.com/ghoulgy/MITRE_Notes/blob/master/T1560.001/T1560_001_Archive_Collected_Data_Archive_via_Utility.md#possible-extention-to-be-compress-and-exfiltrate-not-limited-to-these)
+- For .dll library, file name might be change  
+- Identify unsual windows binaries that loads these dlls  
+- Identify any bulk File Events on those file extension mentioned in [T1560.001](https://github.com/ghoulgy/MITRE_Notes/blob/master/T1560.001/T1560_001_Archive_Collected_Data_Archive_via_Utility.md#possible-extention-to-be-compress-and-exfiltrate-not-limited-to-these)  
+- There are various type of libraries that can be loaded corresponding to the programming language used, at least for custom malware  
