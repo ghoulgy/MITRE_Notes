@@ -50,6 +50,12 @@ How to use [tarfile](https://www.python-engineer.com/posts/tarfile-python/) in p
 
 Download [link](https://ibsensoftware.com/download.html)
 
+## C++ boost library
+
+It supports variable type of compression (e.g. gzip, zlib)  
+
+gzip [example](https://techoverflow.net/2020/01/13/how-to-gzip-compress-on-the-fly-in-c-using-boostiostreams/)
+
 ## Hunt
 
 - For .dll library, file name might be change  
