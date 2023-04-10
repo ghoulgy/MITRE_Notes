@@ -1,0 +1,167 @@
+struct STARTUPGROUP_ITEM
+{
+  _QWORD reg_access_rights;
+  _QWORD unk;
+  _QWORD unk2;
+  _QWORD reg_subkey;
+  _QWORD reg_key;
+};
+
+=================
+Unknown
+.rdata:000000014000A260                 db    0               ; DATA XREF: ProcessRun+B↑o
+.rdata:000000014000A261                 db    0
+.rdata:000000014000A262                 db    0
+.rdata:000000014000A263                 db    0
+.rdata:000000014000A264                 db    0
+.rdata:000000014000A265                 db    0
+.rdata:000000014000A266                 db    0
+.rdata:000000014000A267                 db    0
+
+Key (HKLM, 0xffffffff80002)
+.rdata:000000014000A268                 db    2
+.rdata:000000014000A269                 db    0
+.rdata:000000014000A26A                 db    0
+.rdata:000000014000A26B                 db  80h
+.rdata:000000014000A26C                 db 0FFh
+.rdata:000000014000A26D                 db 0FFh
+.rdata:000000014000A26E                 db 0FFh
+.rdata:000000014000A26F                 db 0FFh
+
+SubKey (Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run)
+.rdata:000000014000A270                 dq offset aSoftwareMicros_6 ; "Software\\Microsoft\\Windows\\CurrentVe"...
+
+Access Right (Call this as it is since this value will determine the access right type used)
+.rdata:000000014000A278                 db  48h ; H
+.rdata:000000014000A279                 db    0
+.rdata:000000014000A27A                 db    0
+.rdata:000000014000A27B                 db    0
+.rdata:000000014000A27C                 db    0
+.rdata:000000014000A27D                 db    0
+.rdata:000000014000A27E                 db    0
+.rdata:000000014000A27F                 db    0
+
+Unknown
+.rdata:000000014000A280                 db    0
+.rdata:000000014000A281                 db    0
+.rdata:000000014000A282                 db    0
+.rdata:000000014000A283                 db    0
+.rdata:000000014000A284                 db    0
+.rdata:000000014000A285                 db    0
+.rdata:000000014000A286                 db    0
+.rdata:000000014000A287                 db    0
+---
+Unknown
+.rdata:000000014000A288                 db  46h ; F
+.rdata:000000014000A289                 db    0
+.rdata:000000014000A28A                 db    0
+.rdata:000000014000A28B                 db  40h ; @
+.rdata:000000014000A28C                 db    0
+.rdata:000000014000A28D                 db    0
+.rdata:000000014000A28E                 db    0
+.rdata:000000014000A28F                 db    0
+
+Key (HKLM, 0xffffffff80002)
+.rdata:000000014000A290                 db    2
+.rdata:000000014000A291                 db    0
+.rdata:000000014000A292                 db    0
+.rdata:000000014000A293                 db  80h
+.rdata:000000014000A294                 db 0FFh
+.rdata:000000014000A295                 db 0FFh
+.rdata:000000014000A296                 db 0FFh
+.rdata:000000014000A297                 db 0FFh
+
+SubKey (Software\Microsoft\Windows\CurrentVersion\Run)
+.rdata:000000014000A298                 dq offset aSoftwareMicros_0 ; "Software\\Microsoft\\Windows\\CurrentVe"...
+
+Access Rights
+.rdata:000000014000A2A0                 db  48h ; H
+.rdata:000000014000A2A1                 db    0
+.rdata:000000014000A2A2                 db    0
+.rdata:000000014000A2A3                 db    0
+.rdata:000000014000A2A4                 db    0
+.rdata:000000014000A2A5                 db    0
+.rdata:000000014000A2A6                 db    0
+.rdata:000000014000A2A7                 db    0
+
+Unknown
+.rdata:000000014000A2A8                 dq offset aRun          ; "Run"
+---
+Unknown
+.rdata:000000014000A2B0                 db    0
+.rdata:000000014000A2B1                 db    0
+.rdata:000000014000A2B2                 db    0
+.rdata:000000014000A2B3                 db    0
+.rdata:000000014000A2B4                 db    0
+.rdata:000000014000A2B5                 db    0
+.rdata:000000014000A2B6                 db    0
+.rdata:000000014000A2B7                 db    0
+
+Key (HKCU, 0xffffffff80001)
+.rdata:000000014000A2B8                 db    1
+.rdata:000000014000A2B9                 db    0
+.rdata:000000014000A2BA                 db    0
+.rdata:000000014000A2BB                 db  80h
+.rdata:000000014000A2BC                 db 0FFh
+.rdata:000000014000A2BD                 db 0FFh
+.rdata:000000014000A2BE                 db 0FFh
+.rdata:000000014000A2BF                 db 0FFh
+
+SubKey (Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run) 
+.rdata:000000014000A2C0                 dq offset aSoftwareMicros_6 ; "Software\\Microsoft\\Windows\\CurrentVe"...
+
+Access Rights
+.rdata:000000014000A2C8                 db  48h ; H
+.rdata:000000014000A2C9                 db    0
+.rdata:000000014000A2CA                 db    0
+.rdata:000000014000A2CB                 db    0
+.rdata:000000014000A2CC                 db    0
+.rdata:000000014000A2CD                 db    0
+.rdata:000000014000A2CE                 db    0
+.rdata:000000014000A2CF                 db    0
+
+Unknown
+.rdata:000000014000A2D0                 db    0
+.rdata:000000014000A2D1                 db    0
+.rdata:000000014000A2D2                 db    0
+.rdata:000000014000A2D3                 db    0
+.rdata:000000014000A2D4                 db    0
+.rdata:000000014000A2D5                 db    0
+.rdata:000000014000A2D6                 db    0
+.rdata:000000014000A2D7                 db    0
+---
+Unknown
+.rdata:000000014000A2D8                 db  47h ; G
+.rdata:000000014000A2D9                 db    0
+.rdata:000000014000A2DA                 db    0
+.rdata:000000014000A2DB                 db  40h ; @
+.rdata:000000014000A2DC                 db    0
+.rdata:000000014000A2DD                 db    0
+.rdata:000000014000A2DE                 db    0
+.rdata:000000014000A2DF                 db    0
+
+Key (HKCU, 0xffffffff80001)
+.rdata:000000014000A2E0                 db    1
+.rdata:000000014000A2E1                 db    0
+.rdata:000000014000A2E2                 db    0
+.rdata:000000014000A2E3                 db  80h
+.rdata:000000014000A2E4                 db 0FFh
+.rdata:000000014000A2E5                 db 0FFh
+.rdata:000000014000A2E6                 db 0FFh
+.rdata:000000014000A2E7                 db 0FFh
+
+Subkey (Software\Microsoft\Windows\CurrentVersion\Run)
+.rdata:000000014000A2E8                 dq offset aSoftwareMicros_0 ; "Software\\Microsoft\\Windows\\CurrentVe"...
+
+Access Rights
+.rdata:000000014000A2F0                 db  48h ; H
+.rdata:000000014000A2F1                 db    0
+.rdata:000000014000A2F2                 db    0
+.rdata:000000014000A2F3                 db    0
+.rdata:000000014000A2F4                 db    0
+.rdata:000000014000A2F5                 db    0
+.rdata:000000014000A2F6                 db    0
+.rdata:000000014000A2F7                 db    0
+
+Unknown
+.rdata:000000014000A2F8                 dq offset aRun          ; "Run"
