@@ -42,7 +42,6 @@ There is **IsOS(0x1Eu)** check before moving into ``SHEnumRegApps()`.
 
 ![rundll32_shell32_dll_reg_run_data.PNG](./Image_T1547.001/runonce_RunStuffHasBeenRun.PNG)
 
-
 **(2)** The execution of `ProcessRun()` can be done with some modification on jump condition for GetSystemMetrics(0x43).
 
 > SM_CMOUSEBUTTONS (0x43)  
