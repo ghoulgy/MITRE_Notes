@@ -8,6 +8,51 @@ struct STARTUPGROUP_ITEM
 };
 
 =================
+--- CurrentVersion\RunOnce ---
+Unknown
+.rdata:000000014000A230 unk_14000A230   db  49h ; I             ; DATA XREF: ProcessPerUserRunOnce+5↑o
+.rdata:000000014000A231                 db    0
+.rdata:000000014000A232                 db    0
+.rdata:000000014000A233                 db  40h ; @
+.rdata:000000014000A234                 db    0
+.rdata:000000014000A235                 db    0
+.rdata:000000014000A236                 db    0
+.rdata:000000014000A237                 db    0
+
+Key (HKCU, 0xffffffff80001)
+.rdata:000000014000A238                 db    1
+.rdata:000000014000A239                 db    0
+.rdata:000000014000A23A                 db    0
+.rdata:000000014000A23B                 db  80h
+.rdata:000000014000A23C                 db 0FFh
+.rdata:000000014000A23D                 db 0FFh
+.rdata:000000014000A23E                 db 0FFh
+.rdata:000000014000A23F                 db 0FFh
+
+Subkey (Software\Microsoft\Windows\CurrentVersion\RunOnce)
+.rdata:000000014000A240                 dq offset String1       ; "Software\\Microsoft\\Windows\\CurrentVe"...
+
+Access Rights
+.rdata:000000014000A248                 db    9
+.rdata:000000014000A249                 db    0
+.rdata:000000014000A24A                 db    0
+.rdata:000000014000A24B                 db    0
+.rdata:000000014000A24C                 db    0
+.rdata:000000014000A24D                 db    0
+.rdata:000000014000A24E                 db    0
+.rdata:000000014000A24F                 db    0
+
+Unknown
+.rdata:000000014000A250                 db    0
+.rdata:000000014000A251                 db    0
+.rdata:000000014000A252                 db    0
+.rdata:000000014000A253                 db    0
+.rdata:000000014000A254                 db    0
+.rdata:000000014000A255                 db    0
+.rdata:000000014000A256                 db    0
+.rdata:000000014000A257                 db    0
+
+--- Explorer\Run and CurrentVersion\Run ---
 Unknown
 .rdata:000000014000A260                 db    0               ; DATA XREF: ProcessRun+B↑o
 .rdata:000000014000A261                 db    0
