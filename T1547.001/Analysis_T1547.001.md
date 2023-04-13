@@ -29,10 +29,19 @@ Inside `runonce.exe`, the `ParseCmdLine()` will parse the paramenter that passed
 ![rundll32_shell32_dll_reg_run_data.PNG](./Image_T1547.001/runonce_alternateshellstartup.PNG)
 
 **(1)**
-`ProcessRunOnce()` from HKLM registry can be execute if 
-`HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\1\RunStuffHasBeenRun` removed
+`ProcessRunOnce()` from HKLM registry can be execute if
+`HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\1\RunStuffHasBeenRun` removed
+
+It will rerun the same executable with parameter `/RunOnce6432`
+
+> Remember since it is HKLM, elevated permission required.  
+
+There is **IsOS(0x1Eu)** check before moving into ``SHEnumRegApps()`.
+
+> OS_WOW6432 (30, 0x1E) means the program is a 32-bit program running on 64-bit Windows
 
 ![rundll32_shell32_dll_reg_run_data.PNG](./Image_T1547.001/runonce_RunStuffHasBeenRun.PNG)
+
 
 **(2)** The execution of `ProcessRun()` can be done with some modification on jump condition for GetSystemMetrics(0x43).
 
