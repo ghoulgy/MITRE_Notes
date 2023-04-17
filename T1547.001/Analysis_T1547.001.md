@@ -29,8 +29,16 @@ Inside `runonce.exe`, the `ParseCmdLine()` will parse the paramenter that passed
 ![rundll32_shell32_dll_reg_run_data.PNG](./Image_T1547.001/runonce_alternateshellstartup.PNG)
 
 **(1)**
-`ProcessRunOnce()` from HKLM registry can be execute if 
-`HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\1\RunStuffHasBeenRun` removed
+`ProcessRunOnce()` from HKLM registry can be execute if
+`HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\1\RunStuffHasBeenRun` removed
+
+It will rerun the same executable with parameter `/RunOnce6432`
+
+> Remember since it is HKLM, elevated permission required.  
+
+There is **IsOS(0x1Eu)** check before moving into ``SHEnumRegApps()`.
+
+> OS_WOW6432 (30, 0x1E) means the program is a 32-bit program running on 64-bit Windows
 
 ![rundll32_shell32_dll_reg_run_data.PNG](./Image_T1547.001/runonce_RunStuffHasBeenRun.PNG)
 
@@ -87,9 +95,28 @@ Just wrote a PoC on file execution using `InvokeCommand` [here](https://github.c
 
 Based on the flow of the code, you can simply add any files into `HKCU\...\RunOnce` and execute `runonce.exe /AlternateShellStartup`, it will execute any files inside the registry key and remove its key value afterwards.
 
+## Analysis on UserInit or Shell in \Software\Microsoft\Windows NT\CurrentVersion\Winlogon
+
+Registry value data in `UserInit` executed in `WLGeneric_ShellStartup_Execute`. Meanwhile, registry value data in `Shell` executed in `WLGeneric_ShellRestart_Enter`. 
+
+Why we have to add comma `,` in order to make this work?
+
+Based on the code below, it can be seen that there is a split done by `wcstok()` with comma `,` as delimiter. The output of `wcstok()` will be enumerate in `for` loop. Inside the loop, there is a space check by `iswspace()` to ensure the first character is a non-space character. If the first character is a non-space character, it will pass into `CUser::CreateProcessW()` -> `CreateProcessAsUserW` as `lpCommandLine`.
+
+```text
+(Input) explorer.exe, c:\Users\<USER_NAME>\random.bat -> wcstok() ->
+(Output in 3rd param) explorer.exe\x00\x20c:\Users\<USER_NAME>\random.bat\0
+
+(Input) "explorer.exe" -> iswspace() -> (Output) "explorer.exe"
+(Input)" c:\Users\<USER_NAME>\random.bat" -> iswspace() (Output) "c:\Users\<USER_NAME>\random.bat"
+```
+
+![winlogon_split_comma.png](./Image_T1547.001/winlogon_split_comma.png)
+
 ## References
 
-<https://medium.com/@boutnaru/the-windows-process-journey-userinit-exe-userinit-logon-application-650062f61df3>
-<https://www.nutanix.com/sg/blog/windows-os-optimization-essentials-part-4-startup-items>
-<https://github.com/Open-Shell/Open-Shell-Menu/blob/master/Src/ClassicExplorer/ExplorerBand.cpp>
-<https://www.hexacorn.com/blog/2019/02/23/beyond-good-ol-run-key-part-104/>
+<https://medium.com/@boutnaru/the-windows-process-journey-userinit-exe-userinit-logon-application-650062f61df3>  
+<https://www.nutanix.com/sg/blog/windows-os-optimization-essentials-part-4-startup-items>  
+<https://github.com/Open-Shell/Open-Shell-Menu/blob/master/Src/ClassicExplorer/ExplorerBand.cpp>  
+<https://www.hexacorn.com/blog/2019/02/23/beyond-good-ol-run-key-part-104/>  
+<https://www.geeksforgeeks.org/wcstok-function-in-c-with-example/>
