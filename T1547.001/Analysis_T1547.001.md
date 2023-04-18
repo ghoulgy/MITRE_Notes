@@ -1,3 +1,17 @@
+# How startup registry entry been executed?
+
+Found out these 3 processes are responsible for that:
+
+- explorer.exe
+- runonce.exe
+- winlogon.exe
+
+Based on the analysis, these registry value data items will be executed via:
+
+- COM object (`IShellFolder` and `IContextMenu`)
+- CreateProcessAsUser
+- rundll32 shell32.dll, ShellExec_RunDLL <FILE_NAME>
+
 ## Analysis For explorer.exe and runonce.exe
 
 Performed quick static analysis for this one
@@ -23,6 +37,8 @@ Inside `runonce.exe`, the `ParseCmdLine()` will parse the paramenter that passed
 `%s` contains the full path of the binary stored in registry `\Run`
 
 ![rundll32_shell32_dll_reg_run_data.PNG](./Image_T1547.001/rundll32_shell32_dll_reg_run_data.PNG)
+
+There is another alternative by using COM object `IShellFolder` and `IContextMenu` which will talk about in next section
 
 ## Analysis on "runonce.exe /AlternateShellStartup"
 
