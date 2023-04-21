@@ -1,3 +1,17 @@
+# How startup registry entry been executed?
+
+Found out these 3 processes are responsible for that:
+
+- explorer.exe
+- runonce.exe
+- winlogon.exe
+
+Based on the analysis, these registry value data items will be executed via:
+
+- COM object (`IShellFolder` and `IContextMenu`)
+- CreateProcessAsUser
+- rundll32 shell32.dll, ShellExec_RunDLL <FILE_NAME>
+
 ## Analysis For explorer.exe and runonce.exe
 
 Performed quick static analysis for this one
@@ -23,6 +37,8 @@ Inside `runonce.exe`, the `ParseCmdLine()` will parse the paramenter that passed
 `%s` contains the full path of the binary stored in registry `\Run`
 
 ![rundll32_shell32_dll_reg_run_data.PNG](./Image_T1547.001/rundll32_shell32_dll_reg_run_data.PNG)
+
+There is another alternative by using COM object `IShellFolder` and `IContextMenu` which will talk about in next section
 
 ## Analysis on "runonce.exe /AlternateShellStartup"
 
@@ -113,10 +129,46 @@ Based on the code below, it can be seen that there is a split done by `wcstok()`
 
 ![winlogon_split_comma.png](./Image_T1547.001/winlogon_split_comma.png)
 
+## Analysis on Startup Folder Path
+
+This path is only for `.lnk` file.
+
+`Explorer.exe` will create a thread `RunStartupAppsThreadProc()` which initiate the process to execute file in startup path.
+![startup_path_CreatThread.PNG](./Image_T1547.001/startup_path_CreatThread.PNG)
+
+From `RunStartupAppsThreadProc()` ---Executes---> `_ProcessStartupGroup()`
+![startup_path_RunStartupAppsThreadProc.PNG](./Image_T1547.001/startup_path_RunStartupAppsThreadProc.PNG)
+
+From `_ProcessStartupGroup()` ---Executes---> `EnumFolder()`
+`struct_startup_folder` contains a structure that contains some interesting stuffs `CSIDL_COMMON_STARTUP` and strings `StartupFolder`
+
+```c++
+struct struct_startup_folder{
+    _QWORD CSIDL; // 0x18, CSIDL_COMMON_STARTUP
+    _QWORD unknown2;
+    _QWORD string_path; // StartupFolder
+}
+```
+
+![startup_path_ProcessStartupGroup.PNG](./Image_T1547.001/startup_path_ProcessStartupGroup.PNG)
+
+From `EnumFolder()` ---Executes---> `ExecStartupEnumProc`
+![startup_path_EnumFolder.PNG](./Image_T1547.001/startup_path_EnumFolder.PNG)
+
+COM Object `ISHellLinkW` and `IContextMenu` loaded and execute the .lnk file in the startup path via `InvokeCommand`
+
+![startup_path_ExecStartupEnumProc.PNG](./Image_T1547.001/startup_path_ExecStartupEnumProc.PNG)
+
+It can be verify via stack trace from `procmon`  
+The stack offset will redirect to the relevant line of code.
+
+![startup_path_procmon_InvokeCommand.png](./Image_T1547.001/startup_path_procmon_InvokeCommand.png)
+
 ## References
 
 <https://medium.com/@boutnaru/the-windows-process-journey-userinit-exe-userinit-logon-application-650062f61df3>  
 <https://www.nutanix.com/sg/blog/windows-os-optimization-essentials-part-4-startup-items>  
 <https://github.com/Open-Shell/Open-Shell-Menu/blob/master/Src/ClassicExplorer/ExplorerBand.cpp>  
 <https://www.hexacorn.com/blog/2019/02/23/beyond-good-ol-run-key-part-104/>  
-<https://www.geeksforgeeks.org/wcstok-function-in-c-with-example/>
+<https://www.geeksforgeeks.org/wcstok-function-in-c-with-example/>  
+<https://www.nirsoft.net/articles/find_special_folder_location.html>
