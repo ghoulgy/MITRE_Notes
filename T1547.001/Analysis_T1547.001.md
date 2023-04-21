@@ -139,8 +139,9 @@ This path is only for `.lnk` file.
 From `RunStartupAppsThreadProc()` ---Executes---> `_ProcessStartupGroup()`
 ![startup_path_RunStartupAppsThreadProc.PNG](./Image_T1547.001/startup_path_RunStartupAppsThreadProc.PNG)
 
-From `_ProcessStartupGroup()` ---Executes---> `EnumFolder()`
-`struct_startup_folder` contains a structure that contains some interesting stuffs `CSIDL_COMMON_STARTUP` and strings `StartupFolder`
+From `_ProcessStartupGroup()` ---Executes---> `EnumFolder()`  
+
+In here, found out there is a `struct_startup_folder` that contains some interesting stuffs `CSIDL_COMMON_STARTUP` and strings `StartupFolder`
 
 ```c++
 struct struct_startup_folder{
