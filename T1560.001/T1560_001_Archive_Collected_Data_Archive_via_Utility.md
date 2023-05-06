@@ -118,8 +118,28 @@ gpg [Command List](https://www.gnupg.org/documentation/manpage.html)
 .pst .eml .msf
 ```
 
+In [DFIR Report on Icedid](https://thedfirreport.com/2023/04/03/malicious-iso-file-leads-to-domain-wide-ransomware). Threat actor use list of exclusion on the file extension to collect the file for exfiltration.
+
+```txt
+psd, ai, skp, psb, dxf, eps,
+zip, ZIP, 7z, rar, tar, cab, gz, ISO, iso,
+mp3, MP3, m4v, avi, MP4, mp4, AVI, ava4, mpg, MOV, mov, MTS,
+tiff, tif, icon, dwg, gcp, gif, png, dcm, DNG, PBD, rcs,
+exe, dll, msi,
+vmdk, vm,
+mdb, db, FIL,
+BAK, BAKDB, bak, tmp,
+msg, pst, PRF,
+FIT, json, man, tib,
+LIB, lib, CRS, crs
+```
+
 ## Archive extension list (Not limited to these)  
 
 ```txt
 .zip .7z .tar .tgz .rar .gz .arj .bz2
 ```
+
+## References
+
+https://thedfirreport.com/2023/04/03/malicious-iso-file-leads-to-domain-wide-ransomware/
