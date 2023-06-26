@@ -142,4 +142,4 @@ LIB, lib, CRS, crs
 
 ## References
 
-https://thedfirreport.com/2023/04/03/malicious-iso-file-leads-to-domain-wide-ransomware/
+<https://thedfirreport.com/2023/04/03/malicious-iso-file-leads-to-domain-wide-ransomware/>
