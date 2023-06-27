@@ -18,7 +18,11 @@ Here is the IDAPro decompiler view on `TCCTL32.dll`
 
 The connecting server will be specified in `GateawayAddress`
 
-![netsupport_client_ini.PNG](./Image_T1219/netsupport_client_ini.PNG)
+![net_support_client_ini.PNG](./Image_T1219/net_support_client_ini.PNG)
+
+Here are the files that locate together along with the listener in same folder.
+
+![net_support_folder_items.PNG](./Image_T1219/net_support_folder_items.PNG)
 
 ## Hunt
 
