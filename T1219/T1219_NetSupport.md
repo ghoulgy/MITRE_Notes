@@ -6,9 +6,11 @@ It is a remote access tool that allows attacker to take control on the system re
 
 So far the listener only listen on port `5405` or `5421`
 
+These two libraries, `PCICL32.dll` and `TCCTL32.dll` did most of the job on the RAT feature.
+
 ![net_support_netstat.PNG](./Image_T1219/net_support_netstat.PNG)
 
-Here is the IDAPro decompiler view.
+Here is the IDAPro decompiler view on `TCCTL32.dll`
 
 ![net_support_port.PNG](./Image_T1219/net_support_port.PNG)
 
