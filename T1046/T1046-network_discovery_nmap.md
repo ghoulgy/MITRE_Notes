@@ -12,7 +12,7 @@ There are 3 types of port status:
 
 TCP header view, taken from www.myreadingroom.co.in
 
-![tcp_segment.jpg](./T1046_Image/tcp_segment.jpg)  
+![tcp_segment.JPG](./T1046_Image/tcp_segment.JPG)  
 
 All nmap port scan tecnique can be found in its [official site](https://nmap.org/book/man-port-scanning-techniques.html).
 
