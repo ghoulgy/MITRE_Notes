@@ -6,13 +6,9 @@ There are different techniques used by nmap to scan for the network port of a ma
 
 There are 3 types of port status:
 
-- Open: A service is hosted on the port and its active
-- Filtered: The port probably hide behind firewall
-- Closed: Port is closed and not available
-
-TCP header view, taken from www.myreadingroom.co.in
-
-![tcp_segment.JPG](./T1046_Image/tcp_segment.JPG)  
+- **Open**: A service is hosted on the port and its active
+- **Filtered**: The port probably hide behind firewall
+- **Closed**: Port is closed and not available
 
 All nmap port scan tecnique can be found in its [official site](https://nmap.org/book/man-port-scanning-techniques.html).
 
@@ -21,6 +17,20 @@ Most of these techniques has been well explained, check [References](#references
 As per nmap [site](https://nmap.org/book/scan-methods-null-fin-xmas-scan.html) stated on `FIN`, `NULL`, and `XMAS` scan:
 
 > The big downside is that **not all systems follow RFC 793** to the letter. A number of systems send RST responses to the probes regardless of whether the port is open or not. This causes all of the ports to be labeled closed. Major operating systems that do this are **Microsoft Windows**, many **Cisco devices**, and **IBM OS/400**.
+
+Based on the statement above, it can be seen that why the scan in the test machine is not working since it is using TCP RFC 9293
+
+![test_machine_tcp_rfc_9293.PNG](./T1046_Image/test_machine_tcp_rfc_9293.PNG)
+
+It can be seen that there are extra flag type in TCP RFC 9293 (`CWR` and `ECE`) compared to TCP RFC 793.
+
+### TCP RFC 9293
+
+![tcp_rfc_9293_tcp_header.PNG](./T1046_Image/tcp_rfc_9293_tcp_header.PNG)
+
+### TCP RFC 793
+
+![tcp_segment.JPG](./T1046_Image/tcp_rfc_793_tcp_header.PNG)  
 
 The pdf [here](https://dl.packetstormsecurity.net/papers/general/demystifying-nmap.pdf) explained the wireshark analysis on those nmap scanning techniques.
 
@@ -101,3 +111,5 @@ A positive result will not have `RST` send back to the scanner machine.
 <https://upadhyayraj.medium.com/nmap-xmas-scan-idle-scan-fin-scan-null-scan-b95a5c73bef6>  
 <https://medium.com/@Aircon/nmap-advanced-port-scans-tryhackme-thm-ed3859a33eca>
 <https://dl.packetstormsecurity.net/papers/general/demystifying-nmap.pdf>  
+<https://datatracker.ietf.org/doc/html/rfc9293#name-header-format>  
+<https://datatracker.ietf.org/doc/html/rfc793#page-15>  
