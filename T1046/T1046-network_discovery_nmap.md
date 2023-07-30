@@ -103,6 +103,76 @@ Results when port is not active:
 
 A positive result will not have `RST` send back to the scanner machine.
 
+## Service Version scan
+
+Usually `-sV`, `-sC` switch will be used to get the service information.
+
+This will trigger the execution of lua based [NSE Library](https://github.com/nmap/nmap/tree/master/nselib) and also [NSE Scripts](https://github.com/nmap/nmap/tree/master/scripts)
+
+These probe packets will change according to the service/protocol
+detected.
+
+### Example on port 80, Web IIS in Windows Server
+
+```cmd
+nmap -sV <Target_IP>
+```
+
+![ws_sV_tcp_stream_1.PNG](./T1046_Image/ws_sV_tcp_stream_1.PNG)
+
+![ws_sV_tcp_stream_2.PNG](./T1046_Image/ws_sV_tcp_stream_2.PNG)
+
+![ws_sV_tcp_stream_3.PNG](./T1046_Image/ws_sV_tcp_stream_3.PNG)
+
+Nmap User-Agent can be seen if web server is detected.
+
+Nselib `http.lua` can be found [here](https://github.com/nmap/nmap/blob/master/nselib/http.lua)
+
+## OS Fingerprinting
+
+When nmap doing `-O` fingerprinting scan, nmap will send a series of IP probes to the host.
+
+Technical details can be found in [nmap site](https://nmap.org/book/osdetect-methods.html)
+
+### Sequence generation (SEQ, OPS, WIN, and T1)
+
+![ws_sV_UDP_prob_tcp_seq_gen.PNG](./T1046_Image/ws_sV_UDP_prob_tcp_seq_gen.PNG)
+
+### TCP explicit congestion notification (ECN)
+
+![ws_sV_TCP_ecn.PNG](./T1046_Image/ws_sV_TCP_ecn.PNG)
+
+### TCP T2-T7
+
+![ws_sV_TCP_prob_T2_T7.PNG](./T1046_Image/ws_sV_TCP_prob_T2_T7.PNG)
+
+### ICMP echo (IE)
+
+![ws_sV_ICMP_probe_120.PNG](./T1046_Image/ws_sV_ICMP_probe_120.PNG)
+
+![ws_sV_ICMP_probe_150.PNG](./T1046_Image/ws_sV_ICMP_probe_150.PNG)
+
+### UDP (U1)
+
+![ws_sV_UDP_probe.PNG](./T1046_Image/ws_sV_UDP_probe.PNG)
+
+[nmap-service-probes](https://nmap.org/book/vscan-fileformat.html)
+will be match against the probe results and determine host OS or service type hosted.
+
+## Hunt
+
+### Port scan
+
+Multiple port being scanned from single IP in short period of time.
+
+### Service scan hunt
+
+Usually nmap will have their own fingerprint when perform those scanning. There is more explaination over [here](https://www.bencteux.fr/posts/nmap_detection/)
+
+### OS Fingerprinting
+
+Identify the sequnce of probe mentioned above in short period of time.
+
 ## References
 
 <http://www.myreadingroom.co.in/notes-and-studymaterial/68-dcn/850-tcp-segment.html>  
@@ -113,3 +183,6 @@ A positive result will not have `RST` send back to the scanner machine.
 <https://dl.packetstormsecurity.net/papers/general/demystifying-nmap.pdf>  
 <https://datatracker.ietf.org/doc/html/rfc9293#name-header-format>  
 <https://datatracker.ietf.org/doc/html/rfc793#page-15>  
+<https://www.bencteux.fr/posts/nmap_detection/>  
+<https://nmap.org/book/osdetect-methods.html>  
+<https://www.secureideas.com/blog/how-to-create-custom-probes-for-nmap-service/version-detection>  
