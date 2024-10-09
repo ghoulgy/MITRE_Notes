@@ -20,17 +20,17 @@ As per nmap [site](https://nmap.org/book/scan-methods-null-fin-xmas-scan.html) s
 
 Based on the statement above, it can be seen that why the scan in the test machine is not working since it is using TCP RFC 9293
 
-![test_machine_tcp_rfc_9293.PNG](./T1046_Image/test_machine_tcp_rfc_9293.PNG)
+![test_machine_tcp_rfc_9293.PNG](./Images_T1046/test_machine_tcp_rfc_9293.PNG)
 
 It can be seen that there are extra flag type in TCP RFC 9293 (`CWR` and `ECE`) compared to TCP RFC 793.
 
 ### TCP RFC 9293
 
-![tcp_rfc_9293_tcp_header.PNG](./T1046_Image/tcp_rfc_9293_tcp_header.PNG)
+![tcp_rfc_9293_tcp_header.PNG](./Images_T1046/tcp_rfc_9293_tcp_header.PNG)
 
 ### TCP RFC 793
 
-![tcp_segment.JPG](./T1046_Image/tcp_rfc_793_tcp_header.PNG)  
+![tcp_segment.JPG](./Images_T1046/tcp_rfc_793_tcp_header.PNG)  
 
 The pdf [here](https://dl.packetstormsecurity.net/papers/general/demystifying-nmap.pdf) explained the wireshark analysis on those nmap scanning techniques.
 
@@ -55,7 +55,7 @@ nmap -sT <Target_IP>
 
 Result when port is active:
 
-![ws_sT_scan_example.png](./T1046_Image/ws_sT_scan_example.png)
+![ws_sT_scan_example.png](./Images_T1046/ws_sT_scan_example.png)
 
 ### Stealth Scan
 
@@ -65,7 +65,7 @@ nmap -sS <Target_IP>
 
 Result when port is active:
 
-![ws_sS_scan_example.png](./T1046_Image/ws_sS_scan_example.png)
+![ws_sS_scan_example.png](./Images_T1046/ws_sS_scan_example.png)
 
 ### Fin Scan
 
@@ -75,7 +75,7 @@ nmap -sF <Target_IP>
 
 Results when port is not active:
 
-![ws_sF_scan_example.png](./T1046_Image/ws_sF_scan_example.png)
+![ws_sF_scan_example.png](./Images_T1046/ws_sF_scan_example.png)
 
 A positive result will not have `RST` send back to the scanner machine.
 
@@ -87,7 +87,7 @@ nmap -sN <Target_IP>
 
 Results when port is not active:
 
-![ws_sN_scan_example.png](./T1046_Image/ws_sN_scan_example.png)
+![ws_sN_scan_example.png](./Images_T1046/ws_sN_scan_example.png)
 
 A positive result will not have `RST` send back to the scanner machine.
 
@@ -99,7 +99,7 @@ nmap -sX <Target_IP>
 
 Results when port is not active:
 
-![ws_sX_scan_example.png](./T1046_Image/ws_sX_scan_example.png)
+![ws_sX_scan_example.png](./Images_T1046/ws_sX_scan_example.png)
 
 A positive result will not have `RST` send back to the scanner machine.
 
@@ -118,11 +118,11 @@ detected.
 nmap -sV <Target_IP>
 ```
 
-![ws_sV_tcp_stream_1.PNG](./T1046_Image/ws_sV_tcp_stream_1.PNG)
+![ws_sV_tcp_stream_1.PNG](./Images_T1046/ws_sV_tcp_stream_1.PNG)
 
-![ws_sV_tcp_stream_2.PNG](./T1046_Image/ws_sV_tcp_stream_2.PNG)
+![ws_sV_tcp_stream_2.PNG](./Images_T1046/ws_sV_tcp_stream_2.PNG)
 
-![ws_sV_tcp_stream_3.PNG](./T1046_Image/ws_sV_tcp_stream_3.PNG)
+![ws_sV_tcp_stream_3.PNG](./Images_T1046/ws_sV_tcp_stream_3.PNG)
 
 Nmap User-Agent can be seen if web server is detected.
 
@@ -136,25 +136,25 @@ Technical details can be found in [nmap site](https://nmap.org/book/osdetect-met
 
 ### Sequence generation (SEQ, OPS, WIN, and T1)
 
-![ws_sV_UDP_prob_tcp_seq_gen.PNG](./T1046_Image/ws_sV_UDP_prob_tcp_seq_gen.PNG)
+![ws_sV_UDP_prob_tcp_seq_gen.PNG](./Images_T1046/ws_sV_UDP_prob_tcp_seq_gen.PNG)
 
 ### TCP explicit congestion notification (ECN)
 
-![ws_sV_TCP_ecn.PNG](./T1046_Image/ws_sV_TCP_ecn.PNG)
+![ws_sV_TCP_ecn.PNG](./Images_T1046/ws_sV_TCP_ecn.PNG)
 
 ### TCP T2-T7
 
-![ws_sV_TCP_prob_T2_T7.PNG](./T1046_Image/ws_sV_TCP_prob_T2_T7.PNG)
+![ws_sV_TCP_prob_T2_T7.PNG](./Images_T1046/ws_sV_TCP_prob_T2_T7.PNG)
 
 ### ICMP echo (IE)
 
-![ws_sV_ICMP_probe_120.PNG](./T1046_Image/ws_sV_ICMP_probe_120.PNG)
+![ws_sV_ICMP_probe_120.PNG](./Images_T1046/ws_sV_ICMP_probe_120.PNG)
 
-![ws_sV_ICMP_probe_150.PNG](./T1046_Image/ws_sV_ICMP_probe_150.PNG)
+![ws_sV_ICMP_probe_150.PNG](./Images_T1046/ws_sV_ICMP_probe_150.PNG)
 
 ### UDP (U1)
 
-![ws_sV_UDP_probe.PNG](./T1046_Image/ws_sV_UDP_probe.PNG)
+![ws_sV_UDP_probe.PNG](./Images_T1046/ws_sV_UDP_probe.PNG)
 
 [nmap-service-probes](https://nmap.org/book/vscan-fileformat.html)
 will be match against the probe results and determine host OS or service type hosted.

@@ -18,31 +18,31 @@ Performed quick static analysis for this one
 
 Inside `ProcessRun6432()` function in `explorer.exe`, `runonce.exe` will be executed inside `SHCreateProcessWithArgs()`
 
-![call_runonce_from_explorer.png](./Image_T1547.001/call_runonce_from_explorer.png)
+![call_runonce_from_explorer.png](./Images_T1547.001/call_runonce_from_explorer.png)
 
-![explorer_run6432_param.PNG](./Image_T1547.001/explorer_run6432_param.PNG)
+![explorer_run6432_param.PNG](./Images_T1547.001/explorer_run6432_param.PNG)
 
 Inside `runonce.exe`, the `ParseCmdLine()` will parse the paramenter that passed from `explorer.exe` and decide what to do next (In this case `/Run6432` is passed as parameter)  
 
-![runonce_parse_cmd.PNG](./Image_T1547.001/runonce_parse_cmd.PNG)
+![runonce_parse_cmd.PNG](./Images_T1547.001/runonce_parse_cmd.PNG)
 
 `SHEnumRegApps` will read all the value data in `\Run` via `RegEnumValueW` and executes them one by one via `Startup_ExecuteRegAppEnumProc()`
 
-![runonce_exec_reg_app_enum_proc.png](./Image_T1547.001/runonce_exec_reg_app_enum_proc.png)
+![runonce_exec_reg_app_enum_proc.png](./Images_T1547.001/runonce_exec_reg_app_enum_proc.png)
 
-![runonce_SHEnumRegApps.PNG](./Image_T1547.001/runonce_SHEnumRegApps.PNG)
+![runonce_SHEnumRegApps.PNG](./Images_T1547.001/runonce_SHEnumRegApps.PNG)
 
 `runonce.exe` will execute the binary stored in registry `\Run` via `rundll32.exe shell32.dll, ShellExec_RunDLL ?0x%X?%s` via `ExecuteRegAppEnumProc()` -> `Startup_ExecuteRegAppEnumProc()` -> `_ShellExecuteRegAppWithJobObject()`
 
 `%s` contains the full path of the binary stored in registry `\Run`
 
-![rundll32_shell32_dll_reg_run_data.PNG](./Image_T1547.001/rundll32_shell32_dll_reg_run_data.PNG)
+![rundll32_shell32_dll_reg_run_data.PNG](./Images_T1547.001/rundll32_shell32_dll_reg_run_data.PNG)
 
 There is another alternative by using COM object `IShellFolder` and `IContextMenu` which will talk about in next section
 
 ## Analysis on "runonce.exe /AlternateShellStartup"
 
-![rundll32_shell32_dll_reg_run_data.PNG](./Image_T1547.001/runonce_alternateshellstartup.PNG)
+![rundll32_shell32_dll_reg_run_data.PNG](./Images_T1547.001/runonce_alternateshellstartup.PNG)
 
 **(1)**
 `ProcessRunOnce()` from HKLM registry can be execute if
@@ -56,7 +56,7 @@ There is **IsOS(0x1Eu)** check before moving into ``SHEnumRegApps()`.
 
 > OS_WOW6432 (30, 0x1E) means the program is a 32-bit program running on 64-bit Windows
 
-![rundll32_shell32_dll_reg_run_data.PNG](./Image_T1547.001/runonce_RunStuffHasBeenRun.PNG)
+![rundll32_shell32_dll_reg_run_data.PNG](./Images_T1547.001/runonce_RunStuffHasBeenRun.PNG)
 
 **(2)** The execution of `ProcessRun()` can be done with some modification on jump condition for GetSystemMetrics(0x43).
 
@@ -74,15 +74,15 @@ The struct contains 2 registry key data as mentioned below:
 - Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run (HKCU/HKLM)
 - Software\Microsoft\Windows\CurrentVersion\Run (HKCU/HKLM)
 
-![runonce_processrun.PNG](./Image_T1547.001/runonce_processrun.PNG)
+![runonce_processrun.PNG](./Images_T1547.001/runonce_processrun.PNG)
 
 `_RunStartupGroup()` will load `SHEnumRegApps()` which will enumerate and load all the registry key value data in key in `strcut STARTUP_ITEM`. Then, these data will be load in  `Startup_ExecuteRegAppEnumProc()`.
 
-![runonce_runstartupgroup.PNG](./Image_T1547.001/runonce_runstartupgroup.PNG)
+![runonce_runstartupgroup.PNG](./Images_T1547.001/runonce_runstartupgroup.PNG)
 
 Inside `Startup_ExecuteRegAppEnumProc()`, it will load `ExecuteRegAppEnumProc()` -> `_ShellExecuteRegAppWorker()` -> `ShellExecuteRunApp()`.
 
-![runonce_shellexecuterunapp.PNG](./Image_T1547.001/runonce_shellexecuterunapp.PNG)
+![runonce_shellexecuterunapp.PNG](./Images_T1547.001/runonce_shellexecuterunapp.PNG)
 
 The `shell32.dll!CDefFolderMenu::InvokeCommand()` will execute the registry value data fetch from the registry key in `struct STARTUP_ITEM`.
 
@@ -101,7 +101,7 @@ Here is the variable assignment for the structure used in `ShellExecuteRunApp()`
 
 Note: rax -> `shell32.dll!CDefFolderMenu::InvokeCommand()`.
 
-![runonce_dispatch_call.png](./Image_T1547.001/runonce_dispatch_call.png)
+![runonce_dispatch_call.png](./Images_T1547.001/runonce_dispatch_call.png)
 
 Just wrote a PoC on file execution using `InvokeCommand` [here](https://github.com/ghoulgy/RandomCodes/blob/master/cpp/icontextmenu_invokecommand.cpp).
 
@@ -127,17 +127,17 @@ Based on the code below, it can be seen that there is a split done by `wcstok()`
 (Input)" c:\Users\<USER_NAME>\random.bat" -> iswspace() (Output) "c:\Users\<USER_NAME>\random.bat"
 ```
 
-![winlogon_split_comma.png](./Image_T1547.001/winlogon_split_comma.png)
+![winlogon_split_comma.png](./Images_T1547.001/winlogon_split_comma.png)
 
 ## Analysis on Startup Folder Path
 
 This path is only for `.lnk` file.
 
 `Explorer.exe` will create a thread `RunStartupAppsThreadProc()` which initiate the process to execute file in startup path.
-![startup_path_CreatThread.PNG](./Image_T1547.001/startup_path_CreatThread.PNG)
+![startup_path_CreatThread.PNG](./Images_T1547.001/startup_path_CreatThread.PNG)
 
 From `RunStartupAppsThreadProc()` ---Executes---> `_ProcessStartupGroup()`
-![startup_path_RunStartupAppsThreadProc.PNG](./Image_T1547.001/startup_path_RunStartupAppsThreadProc.PNG)
+![startup_path_RunStartupAppsThreadProc.PNG](./Images_T1547.001/startup_path_RunStartupAppsThreadProc.PNG)
 
 From `_ProcessStartupGroup()` ---Executes---> `EnumFolder()`  
 
@@ -151,19 +151,19 @@ struct struct_startup_folder{
 }
 ```
 
-![startup_path_ProcessStartupGroup.PNG](./Image_T1547.001/startup_path_ProcessStartupGroup.PNG)
+![startup_path_ProcessStartupGroup.PNG](./Images_T1547.001/startup_path_ProcessStartupGroup.PNG)
 
 From `EnumFolder()` ---Executes---> `ExecStartupEnumProc`
-![startup_path_EnumFolder.PNG](./Image_T1547.001/startup_path_EnumFolder.PNG)
+![startup_path_EnumFolder.PNG](./Images_T1547.001/startup_path_EnumFolder.PNG)
 
 COM Object `ISHellLinkW` and `IContextMenu` loaded and execute the .lnk file in the startup path via `InvokeCommand`
 
-![startup_path_ExecStartupEnumProc.PNG](./Image_T1547.001/startup_path_ExecStartupEnumProc.PNG)
+![startup_path_ExecStartupEnumProc.PNG](./Images_T1547.001/startup_path_ExecStartupEnumProc.PNG)
 
 It can be verify via stack trace from `procmon`  
 The stack offset will redirect to the relevant line of code.
 
-![startup_path_procmon_InvokeCommand.png](./Image_T1547.001/startup_path_procmon_InvokeCommand.png)
+![startup_path_procmon_InvokeCommand.png](./Images_T1547.001/startup_path_procmon_InvokeCommand.png)
 
 ## References
 
