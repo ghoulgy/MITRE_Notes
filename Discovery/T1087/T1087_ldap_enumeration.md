@@ -28,7 +28,6 @@ Sometimes different EDR/tool will have different way on logging the LDAP query d
 | Kerberoast RC4 (Rubues) | (!msds-supportedencryptiontypes:1.2.840.113556.1.4.804:=24) |
 | Kerberoast AES (Rubeus) | (msds-supportedencryptiontypes:1.2.840.113556.1.4.804:=24) |
 | Asreproast (Rubeus)| (&(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=4194304)) |
-| Accounts with Constrained Delegation configured to ghost SPN (Purple Knight) | (&(msDS-AllowedToDelegateTo=*)(!(userAccountControl&16777216))) |
 | Constrained Delegation with allowed Protocol Tranisition / S4U2Self (Purple Knight) | (&(msds-allowedToDelegateTo=*)(userAccountControl>=16777216)(userAccountControl:1.2.840.113556.1.4.803:=16777216)) |
 | Constrained delegation configured and protocol transition not configured (Purple Knight)| &(msds-allowedToDelegateTo=*)(!(userAccountControl:1.2.840.113556.1.4.803:=16777216)) |
 | Domain controllers with Resource Based Constrain Delegation, RBCD (Purple Knight) | (& (msDS-AllowedToActOnBehalfOfOtherIdentity=*)(primaryGroupID=516)) |
