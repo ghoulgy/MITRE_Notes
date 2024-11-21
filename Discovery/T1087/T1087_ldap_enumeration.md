@@ -37,7 +37,7 @@ Sometimes different EDR/tool will have different way on logging the LDAP query d
 | Unconstrained Delegation (Purple Knight) | (&(servicePrincipalName=*)(& (userAccountControl>=524288)(userAccountControl\|524288)(!(userAccountControl\|8192))(objectClass=user))) |
 | Abnormal Password Reset (PurpleKnight) | (&(samaccounttype=805306368)(pwdLastSet>=$pwdLastSetThreshold)(!(userAccountControl:1.2.840.113556.1.4.803:=2))) |
 | Anonymous NSPI access to AD enabled (PurpleKnight) | (&(objectClass=nTDSService)(cn=Directory Service)(dSHeuristics=*)) |
-|Zerologon vulnerability (PurpleKnight) | (&(objectCategory=computer)(dnshostname=*)(\|(primaryGroupID=516)(primaryGroupID=521))) |
+| Getting List of DC (PurpleKnight, Zerologon vulnerability) | (&(objectCategory=computer)(dnshostname=*)(\|(primaryGroupID=516)(primaryGroupID=521))) |
 | Account no require password (PingCastle) | (&(objectCategory=person)(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=32)) |
 | Generate user data ([PingCastle](https://github.com/netwrix/pingcastle/blob/master/Healthcheck/HealthcheckAnalyzer.cs#L484C29-L484C40)) | (\|(&(objectClass=user)(objectCategory=person))(objectcategory=msDS-GroupManagedServiceAccount)(objectcategory=msDS-ManagedServiceAccount)) |
 | Details devices need to register with Entra ID ([PingCastle](https://smbtothecloud.com/hybrid-device-join-what-happens-behind-the-scenes/)) | (name=62a0ff2e-97b9-4513-943f-0d221bd30080) |
