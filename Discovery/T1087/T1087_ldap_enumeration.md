@@ -32,7 +32,6 @@ Sometimes different EDR/tool will have different way on logging the LDAP query d
 | Constrained Delegation with allowed Protocol Tranisition / S4U2Self (Purple Knight) | (&(msds-allowedToDelegateTo=*)(userAccountControl>=16777216)(userAccountControl:1.2.840.113556.1.4.803:=16777216)) |
 | Constrained delegation configured and protocol transition not configured (Purple Knight)| &(msds-allowedToDelegateTo=*)(!(userAccountControl:1.2.840.113556.1.4.803:=16777216)) |
 | Domain controllers with Resource Based Constrain Delegation, RBCD (Purple Knight) | (& (msDS-AllowedToActOnBehalfOfOtherIdentity=*)(primaryGroupID=516)) |
-| krbtgt account with Resource-Based Constrained Delegation enabled (PurpleKnight) | (&(msds-allowedtoactonbehalfofotheridentity=*)(objectsid=$domainSID-502)) |
 | Dont require pre auth (Purple Knight) | (&(userAccountControl>=4194304)(userAccountControl&4194304) (objectCategory=CN=Person,CN=Schema,CN=Configuration,DC=,DC=,DC=,DC=net)) |
 | Unconstrained Delegation (Purple Knight) | (&(servicePrincipalName=*)(& (userAccountControl>=524288)(userAccountControl\|524288)(!(userAccountControl\|8192))(objectClass=user))) |
 | Abnormal Password Reset (PurpleKnight) | (&(samaccounttype=805306368)(pwdLastSet>=$pwdLastSetThreshold)(!(userAccountControl:1.2.840.113556.1.4.803:=2))) |
