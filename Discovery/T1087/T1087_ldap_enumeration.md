@@ -4,7 +4,9 @@ LDAP search is widely used by various tools to perform reconnaissance, e.g. ADEx
 
 ## LDAP Filter String From Tools
 
-These are some common filters used by the recon tools (non-exchausted), some of them already mentioned by [Falcon Force](https://github.com/FalconForceTeam/FalconFriday/blob/master/Discovery/AD_Data_Collection_LDAP_Filter_Server_Side_MDI.md) and [Microsoft](https://techcommunity.microsoft.com/blog/microsoftdefenderatpblog/hunting-for-reconnaissance-activities-using-ldap-search-filters/824726), you may look into the source code or execute them in your test machine (with logging mode on) to find out more LDAP query.
+These are some common filters used by the recon tools (non-exchausted), some of them already mentioned by [Falcon Force](https://github.com/FalconForceTeam/FalconFriday/blob/master/Discovery/AD_Data_Collection_LDAP_Filter_Server_Side_MDI.md) and [Microsoft](https://techcommunity.microsoft.com/blog/microsoftdefenderatpblog/hunting-for-reconnaissance-activities-using-ldap-search-filters/824726). 
+
+To harvest those LDAP filter strings, you may look into the source code and perform some regex or execute them in your test machine (with logging mode on).
 
 Sometimes different EDR/tool will have different way on logging the LDAP query data, so just take certain keywords or minor changes from the `LDAP Filter String` column when perform searches in your environment. e.g. `UserAccountControl:1.2.840.113556.1.4.803:=2` to `UserAccountControl&2`
 
