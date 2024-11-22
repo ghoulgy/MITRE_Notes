@@ -29,7 +29,7 @@ Sometimes different EDR/tool will have different way on logging the LDAP query d
 | Kerberoast AES (Rubeus) | (msds-supportedencryptiontypes:1.2.840.113556.1.4.804:=24) |
 | Asreproast (Rubeus)| (&(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=4194304)) |
 | Constrained Delegation with allowed Protocol Tranisition / S4U2Self (Purple Knight) | (&(msds-allowedToDelegateTo=*)(userAccountControl>=16777216)(userAccountControl:1.2.840.113556.1.4.803:=16777216)) |
-| Constrained delegation configured and protocol transition not configured (Purple Knight)| &(msds-allowedToDelegateTo=*)(!(userAccountControl:1.2.840.113556.1.4.803:=16777216)) |
+| Constrained delegation configured and protocol transition not configured / S4U2Proxy (Purple Knight)| &(msds-allowedToDelegateTo=*)(!(userAccountControl:1.2.840.113556.1.4.803:=16777216)) |
 | Domain controllers with Resource Based Constrain Delegation, RBCD (Purple Knight) | (& (msDS-AllowedToActOnBehalfOfOtherIdentity=*)(primaryGroupID=516)) |
 | Dont require pre auth (Purple Knight) | (&(userAccountControl>=4194304)(userAccountControl&4194304) (objectCategory=CN=Person,CN=Schema,CN=Configuration,DC=,DC=,DC=,DC=net)) |
 | Unconstrained Delegation (Purple Knight) | (&(servicePrincipalName=*)(& (userAccountControl>=524288)(userAccountControl\|524288)(!(userAccountControl\|8192))(objectClass=user))) |
@@ -82,3 +82,4 @@ Sometimes different EDR/tool will have different way on logging the LDAP query d
 [r3d-buck3t](https://medium.com/r3d-buck3t/how-to-abuse-resource-based-constrained-delegation-to-gain-unauthorized-access-36ac8337dd5a)\
 [PentestLab](https://pentestlab.blog/2022/03/21/unconstrained-delegation/)\
 [csandker](https://csandker.io/2020/02/15/KerberosDelegationAReferenceOverview.html)
+[SharpADWS](https://github.com/wh0amitz/SharpADWS/tree/master)
