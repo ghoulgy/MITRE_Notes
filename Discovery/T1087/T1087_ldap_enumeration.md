@@ -77,9 +77,11 @@ Sometimes different EDR/tool will have different way on logging the LDAP query d
 `(userAccountControl|524288)` corresponds to the `TRUSTED_FOR_DELEGATION` flag in the `userAccountControl` attribute.
 
 ## References
-[Falcon Force](https://github.com/FalconForceTeam/FalconFriday/blob/master/Discovery/AD_Data_Collection_LDAP_Filter_Server_Side_MDI.md)\
-[Microsoft](https://techcommunity.microsoft.com/blog/microsoftdefenderatpblog/hunting-for-reconnaissance-activities-using-ldap-search-filters/824726)\
-[r3d-buck3t](https://medium.com/r3d-buck3t/how-to-abuse-resource-based-constrained-delegation-to-gain-unauthorized-access-36ac8337dd5a)\
-[PentestLab](https://pentestlab.blog/2022/03/21/unconstrained-delegation/)\
-[csandker](https://csandker.io/2020/02/15/KerberosDelegationAReferenceOverview.html)
+[FalconForce - LDAP Filter](https://github.com/FalconForceTeam/FalconFriday/blob/master/Discovery/AD_Data_Collection_LDAP_Filter_Server_Side_MDI.md)\
+[FalconForce - AD Data Collection](https://medium.com/falconforce/falconfriday-detecting-active-directory-data-collection-0xff21-c22d1a57494c)
+[Microsoft - LDAP Filter](https://techcommunity.microsoft.com/blog/microsoftdefenderatpblog/hunting-for-reconnaissance-activities-using-ldap-search-filters/824726)\
+[r3d-buck3t - Unconstrained Delegation](https://medium.com/r3d-buck3t/how-to-abuse-resource-based-constrained-delegation-to-gain-unauthorized-access-36ac8337dd5a)\
+[PentestLab - Unconstrained Delegation](https://pentestlab.blog/2022/03/21/unconstrained-delegation/)\
+[csandker - Delegation Overview](https://csandker.io/2020/02/15/KerberosDelegationAReferenceOverview.html)
 [SharpADWS](https://github.com/wh0amitz/SharpADWS/tree/master)
+[SpecterOps - Unconstrain Delegation Forests Trusts](https://posts.specterops.io/hunting-in-active-directory-unconstrained-delegation-forests-trusts-71f2b33688e1)
