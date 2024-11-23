@@ -12,7 +12,7 @@ Sometimes different EDR/tool will have different way on logging the LDAP query d
 
 | Tools | LDAP Filter String |
 |---|---|
-| AD Explorer | objectGUID=* |
+| AD Explorer | objectGUID=* (When DistinguishedName have **DC=** only)<br>objectClass=attributeSchema<br>objectClass=dMD<br>objectClass=attributeSchema<br>objectClass=classSchema<br>objectClass=controlAccessRight<br>objectClass=*<br>objectClass=displaySpecifier |
 | Sharphound | (schemaIDGUID=*)<br>(&(objectclass=computer)(userAccountControl&8192))<br>(\|(samAccountType=805306368)(samAccountType=805306369)(objectclass=organizationalUnit))<br>(\|(samaccounttype=268435456)(samaccounttype=268435457)(samaccounttype=536870912)(samaccounttype=536870913))<br>(samAccountType=805306368)(samAccountType=805306369) |
 | enum_ad_user_comments (Metasploit) | (&(&(objectCategory=person)(objectClass=user))(\|(description=\*pass\*)(comment=\*pass\*))) |
 | enum_ad_computers (Metasploit) | (&(objectCategory=computer)(operatingSystem=\*server\*)) |
@@ -82,6 +82,7 @@ Sometimes different EDR/tool will have different way on logging the LDAP query d
 [Microsoft - LDAP Filter](https://techcommunity.microsoft.com/blog/microsoftdefenderatpblog/hunting-for-reconnaissance-activities-using-ldap-search-filters/824726)\
 [r3d-buck3t - Unconstrained Delegation](https://medium.com/r3d-buck3t/how-to-abuse-resource-based-constrained-delegation-to-gain-unauthorized-access-36ac8337dd5a)\
 [PentestLab - Unconstrained Delegation](https://pentestlab.blog/2022/03/21/unconstrained-delegation/)\
-[csandker - Delegation Overview](https://csandker.io/2020/02/15/KerberosDelegationAReferenceOverview.html)
-[SharpADWS](https://github.com/wh0amitz/SharpADWS/tree/master)
-[SpecterOps - Unconstrain Delegation Forests Trusts](https://posts.specterops.io/hunting-in-active-directory-unconstrained-delegation-forests-trusts-71f2b33688e1)
+[csandker - Delegation Overview](https://csandker.io/2020/02/15/KerberosDelegationAReferenceOverview.html)\
+[SharpADWS](https://github.com/wh0amitz/SharpADWS/tree/master)\
+[SpecterOps - Unconstrain Delegation Forests Trusts](https://posts.specterops.io/hunting-in-active-directory-unconstrained-delegation-forests-trusts-71f2b33688e1)\
+[BlackLanternSecurity - Detect LDAP Recon](https://blog.blacklanternsecurity.com/p/detecting-ldap-recoannaissance)
